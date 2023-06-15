@@ -1,118 +1,98 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Button from "@/components/Button";
+import ProductCard from "@/components/ProductCard";
+import ProductRow from "@/components/ProductRow";
+import Image from "next/image";
+import { generateProduct } from "@/lib/client";
+import { useEffect, useState } from "react";
+import { GetStaticProps } from "next";
+import { ProductPreview } from "@/lib/types";
+import { getProductsPreview } from "@/lib/server";
+import { useRouter } from "next/router";
 
-const inter = Inter({ subsets: ['latin'] })
+export const getStaticProps: GetStaticProps = async (ctx) => {
+	const productsPreview = await getProductsPreview();
 
-export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+	return {
+		props: {
+			productsPreview,
+		},
+	};
+};
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+interface HomeProps {
+	productsPreview: ProductPreview[];
+}
+export default function Home({ productsPreview }: HomeProps) {
+	const router = useRouter();
+	return (
+		<div className=" h-fit w-full overflow-hidden">
+			<section
+				id="hero"
+				className="relative mb-32 flex h-fit w-full items-center justify-between pl-14"
+			>
+				<div className="flex w-fit flex-col gap-4">
+					<h1 className="text-6xl font-semibold">
+						Casual&nbsp;
+						<span className="text-orange-600">Coolness</span> <br />
+						<span className="text-orange-600">Stylish</span>&nbsp;Comfort
+					</h1>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+					<p className="w-9/12 text-md">
+						Experience unparalleled comfort and style with our handpicked
+						selection, for those searching for unique and trendy hoodies.
+					</p>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+					<Button
+						onClick={() => router.push("/hoodies")}
+						className="bg-orange-600"
+					>
+						View our selection
+					</Button>
+				</div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
+				<div className="relative grid h-fit w-full grid-cols-[1fr_max-content] grid-rows-2 gap-x-2 gap-y-4 overflow-hidden">
+					<Image
+						width={428}
+						height={642}
+						src="/images/hero-1.webp"
+						alt="Person in plain background with a hoodie"
+						className="z-10 row-span-2 h-[39rem] w-full animate-fade object-cover opacity-0"
+					/>
+					<Image
+						width={305}
+						height={305}
+						src="/images/hero-2.webp"
+						className="z-10 h-76 w-76 animate-fade object-cover object-top opacity-0 animation-delay-100"
+						alt="Person in wood background with a hoodie"
+					/>
+					<Image
+						width={305}
+						height={305}
+						src="/images/hero-3.webp"
+						className="z-10 h-76 w-76 animate-fade object-cover object-top opacity-0 animation-delay-200"
+						alt="Person with a white hoodie in gray background"
+					/>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+					<Image
+						width={500}
+						height={900}
+						src="/images/hero-icon.webp"
+						className="absolute -bottom-1/2 right-0"
+						alt="background grid"
+					/>
+				</div>
+			</section>
+
+			<section id="body" className="h-full w-full">
+				<h2 className="mb-3 text-center text-2xl font-bold">
+					Check out our new acquisitions
+				</h2>
+				<ProductRow>
+					{productsPreview.map((product, i) => (
+						<ProductCard key={i} {...product} />
+					))}
+				</ProductRow>
+			</section>
+		</div>
+	);
 }
