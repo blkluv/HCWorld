@@ -1,4 +1,4 @@
-This is a demostration project of a third-party shopify website using [https://nextjs.org/][Next JS] and [https://shopify.dev/docs/api/storefront][Shopify Storefront API].
+This is a demostration project of a third-party shopify website using [NextJS](https://nextjs.org/) and [Shopify StoreFront API](https://shopify.dev/docs/api/storefront).
 ## Getting Started
 
 1. Install the dependencies with:
