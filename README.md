@@ -16,12 +16,12 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the page.
 ## Resources used: 
-# Shopify: https://www.shopify.com/
-# NextJS: https://nextjs.org/
-# GraphQL: https://graphql.org/
-# TailwindCSS: https://tailwindcss.com/
-# Figma: https://www.figma.com/
-# Heroicons: https://heroicons.com/
-# Pexels: https://www.pexels.com/
+### Shopify: https://www.shopify.com/
+### NextJS: https://nextjs.org/
+### GraphQL: https://graphql.org/
+### TailwindCSS: https://tailwindcss.com/
+### Figma: https://www.figma.com/
+### Heroicons: https://heroicons.com/
+### Pexels: https://www.pexels.com/
 
-This project was created by: Orlando Sandí.
+**This project was created by: Orlando Sandí.**
