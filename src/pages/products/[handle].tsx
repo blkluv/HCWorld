@@ -1,4 +1,4 @@
-import { useCart } from "@/Context/CartProvider";
+import { useCart } from "@/context/CartProvider";
 import Button from "@/components/Button";
 import CheckGroup from "@/components/CheckGroup";
 import ProductCard from "@/components/ProductCard";
@@ -9,6 +9,8 @@ import { Product, Purchase } from "@/lib/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import React, { useState } from "react";
+import BreadCrumbs from "@/components/BreadCrumbs";
+import BreadCrumbsStep from "@/components/BreadCrumbs/BreadCrumbsStep";
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 	const handles = await getProductHandles();
@@ -45,7 +47,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 	const [variant, setVariant] = useState(" ");
 	const [error, setError] = useState("");
 	const cartContext = useCart();
-	console.log(product.relatedProducts);
+
 	const isInCart = cartContext?.purchases.find(
 		(purchase) => product.handle == purchase.id
 	);
@@ -81,15 +83,30 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 	}
 	return (
 		<section className="flex flex-col gap-7">
+			<BreadCrumbs className="px-14">
+				<BreadCrumbsStep key={"home"} href="/">
+					Home
+				</BreadCrumbsStep>
+				<BreadCrumbsStep key={"hoodies"} href="/hoodies">
+					Hoodies
+				</BreadCrumbsStep>
+				<BreadCrumbsStep
+					key={"collection"}
+					href={`/collections/${product.collection.handle}`}
+				>
+					{product.collection.title}
+				</BreadCrumbsStep>
+				<BreadCrumbsStep key={product.title}>{product.title}</BreadCrumbsStep>
+			</BreadCrumbs>
 			<div className="flex h-full w-full gap-6 px-14">
 				<Image
 					width={679}
 					height={905}
-					className="h-screen w-5/6 object-cover object-bottom"
+					className="h-screen flex-[0_0_50%] bg-gray-600 object-cover object-top"
 					src={product.image}
 					alt={product.title}
 				/>
-				<div className="flex w-full flex-col gap-5 pt-5">
+				<div className="flex w-full flex-[0_0_50%] flex-col gap-5 pt-5">
 					<div className="flex w-full flex-col gap-4">
 						<div>
 							<h1 className="text-2xl font-semibold">{product.title}</h1>
@@ -120,9 +137,9 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 						<ul>
 							{product.tags.map((tag) => {
 								return (
-									<li key={tag} className="text-base">
-										<span className="text-orange-600">-</span> &nbsp;
-										{tag}
+									<li key={tag} className="flex text-base">
+										<span className="font-bold text-orange-600">-</span> &nbsp;
+										<p>{tag[0].toUpperCase() + tag.slice(1)}</p>
 									</li>
 								);
 							})}

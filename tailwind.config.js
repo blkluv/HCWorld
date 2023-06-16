@@ -78,11 +78,23 @@ module.exports = {
 						pointerEvents: "none",
 					},
 				},
+
+				"fade-left": {
+					"0%": {
+						transform: "translateX(-5%)",
+						opacity: 0,
+					},
+					"100%": {
+						transform: "translateX(0)",
+						opacity: 1,
+					},
+				},
 			},
 			animation: {
 				fade: "fade-in 2s ease-in-out forwards",
 				"fade-down": "fade-down 0.2s ease-in-out forwards",
 				"fade-out": "fade-out 0.2s ease-in-out forwards",
+				"fade-left": "fade-left 0.8s ease-in-out forwards",
 			},
 		},
 	},

@@ -1,10 +1,10 @@
-import { useCart } from "@/Context/CartProvider";
+import { useCart } from "@/context/CartProvider";
 import React, { useState } from "react";
 import CartCard from "./CartCard";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { _price } from "@/lib/client";
 import Button from "@/components/Button";
-import { useToast } from "@/Context/ToastProvider";
+import { useToast } from "@/context/ToastProvider";
 
 interface CartPopoverProps {
 	show: boolean;
@@ -45,7 +45,10 @@ export default function CartPopover({ show, setShow }: CartPopoverProps) {
 				if (ToastContext) {
 					ToastContext.fire("Redirecting to checkout...");
 				}
-				window.location.href = webUrl;
+				const link = document.createElement("a");
+				link.href = webUrl;
+				link.target = "_blank";
+				link.click();
 			}
 		}
 		setLoading(false);

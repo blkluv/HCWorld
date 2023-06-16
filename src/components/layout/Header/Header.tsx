@@ -3,7 +3,7 @@ import React from "react";
 import Navlink from "./Navlink";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useCart } from "@/Context/CartProvider";
+import { useCart } from "@/context/CartProvider";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 
@@ -27,9 +27,10 @@ export default function Header({ setShowCart }: HeaderProps) {
 					<Navlink href="/">Home</Navlink>
 					<Navlink href="/hoodies">Hoodies</Navlink>
 					<Menu title="Collections">
-						<MenuItem href="">Vivid</MenuItem>
-						<MenuItem href="">Bold</MenuItem>
-						<MenuItem href="">Monochrome</MenuItem>
+						<MenuItem href="/collections/vivid">Vivid</MenuItem>
+						<MenuItem href="/collections/bold">Bold</MenuItem>
+						<MenuItem href="/collections/monochrome">Monochrome</MenuItem>
+						<MenuItem href="/hoodies">All</MenuItem>
 					</Menu>
 					<Navlink href="/about">About</Navlink>
 				</nav>

@@ -13,10 +13,18 @@ export default function Menu({ children, title }: MenuProps) {
 	function onRouteChange() {
 		setExpanded(false);
 	}
+	function onBodyTouch() {
+		setExpanded(false);
+	}
 	useEffect(() => {
 		router.events.on("routeChangeComplete", onRouteChange);
-
-		return () => router.events.off("routeChangeComplete", onRouteChange);
+		document.querySelector("#content")?.addEventListener("click", onBodyTouch);
+		return () => {
+			router.events.off("routeChangeComplete", onRouteChange);
+			document
+				.querySelector("#content")
+				?.removeEventListener("click", onBodyTouch);
+		};
 	}, [router.events]);
 	return (
 		<div className="relative">
