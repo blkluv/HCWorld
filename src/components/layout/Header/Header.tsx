@@ -3,7 +3,7 @@ import React from "react";
 import Navlink from "./Navlink";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useCart } from "@/context/CartProvider";
+import { useCart } from "@/contexts/CartProvider";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 

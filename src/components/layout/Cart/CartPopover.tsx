@@ -1,10 +1,10 @@
-import { useCart } from "@/context/CartProvider";
+import { useCart } from "@/contexts/CartProvider";
 import React, { useState } from "react";
 import CartCard from "./CartCard";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { _price } from "@/lib/client";
 import Button from "@/components/Button";
-import { useToast } from "@/context/ToastProvider";
+import { useToast } from "@/contexts/ToastProvider";
 
 interface CartPopoverProps {
 	show: boolean;

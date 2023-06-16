@@ -1,4 +1,4 @@
-import { useCart } from "@/context/CartProvider";
+import { useCart } from "@/contexts/CartProvider";
 import Button from "@/components/Button";
 import { _price } from "@/lib/client";
 import { Purchase } from "@/lib/types";

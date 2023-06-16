@@ -1,4 +1,4 @@
-import { useCart } from "@/context/CartProvider";
+import { useCart } from "@/contexts/CartProvider";
 import Button from "@/components/Button";
 import CheckGroup from "@/components/CheckGroup";
 import ProductCard from "@/components/ProductCard";
