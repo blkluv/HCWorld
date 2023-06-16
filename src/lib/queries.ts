@@ -31,7 +31,7 @@ export const gqlProducts = gql`
 	}
 `;
 
-export const gqlHandles = gql`
+export const gqlProductHandles = gql`
 	query getProducts {
 		products(first: 100) {
 			edges {
@@ -42,7 +42,17 @@ export const gqlHandles = gql`
 		}
 	}
 `;
-
+export const gqlCollectionHandles = gql`
+	query getCollections {
+		collections(first: 5) {
+			edges {
+				node {
+					handle
+				}
+			}
+		}
+	}
+`;
 export const gqlSingleProduct = gql`
 	query getSingleProduct($handle: String!) {
 		product(handle: $handle) {
@@ -71,6 +81,7 @@ export const gqlSingleProduct = gql`
 				edges {
 					node {
 						title
+						handle
 					}
 				}
 			}
@@ -106,6 +117,7 @@ export const gqlGetCollectionsAndProducts = gql`
 								edges {
 									node {
 										title
+										handle
 									}
 								}
 							}
@@ -133,6 +145,54 @@ export const gqlGetProductRecommendations = gql`
 			}
 			featuredImage {
 				url
+			}
+		}
+	}
+`;
+
+export const gqlGetSingleCollection = gql`
+	query getCollectionsAndProducts($handle: String!) {
+		collection(handle: $handle) {
+			handle
+			id
+			title
+			description
+			products(first: 30) {
+				nodes {
+					id
+					title
+					description
+					tags
+					handle
+					vendor
+					priceRange {
+						maxVariantPrice {
+							amount
+						}
+					}
+					variants(first: 5) {
+						edges {
+							node {
+								availableForSale
+								title
+								id
+							}
+						}
+					}
+					createdAt
+					collections(first: 1) {
+						edges {
+							node {
+								title
+								handle
+							}
+						}
+					}
+					featuredImage {
+						url
+						altText
+					}
+				}
 			}
 		}
 	}

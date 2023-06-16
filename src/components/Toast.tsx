@@ -1,5 +1,4 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { time } from "console";
 import React, { useEffect, useRef } from "react";
 
 interface ToastProps {

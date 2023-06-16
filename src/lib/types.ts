@@ -12,7 +12,10 @@ export type Product = {
 	tags: string[];
 	handle: string;
 	price: number;
-	collection: string;
+	collection: {
+		title: string;
+		handle: string;
+	};
 	vendor: string;
 	relatedProducts?: ProductPreview[];
 	variants: {
@@ -77,7 +80,7 @@ export interface Collections {
 }
 
 export interface CollectionsEdge {
-	node: { title: string };
+	node: { title: string; handle: string };
 }
 
 export interface FeaturedImage {
@@ -100,6 +103,7 @@ export interface CollectionNode {
 	title: string;
 	id: string;
 	handle: string;
+	description: string;
 	products: {
 		nodes: ProductNode[];
 	};
@@ -110,4 +114,9 @@ export interface Collection {
 	id: string;
 	handle: string;
 	products: ProductPreview[];
+}
+
+export interface FullCollection extends Omit<Collection, "products"> {
+	products: Product[];
+	description: string;
 }

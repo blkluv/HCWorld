@@ -43,7 +43,9 @@ export default function Layout({ children }: LayoutProps) {
 			<Header setShowCart={setShowCart} />
 			<CartPopover show={showCart} setShow={setShowCart} />
 			<Notification />
-			<main className="my-10 min-h-screen w-full">{children}</main>
+			<main id="content" className="my-10 min-h-screen w-full">
+				{children}
+			</main>
 			<Footer />
 		</div>
 	);

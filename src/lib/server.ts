@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import {
 	Collection,
 	CollectionNode,
+	FullCollection,
 	Product,
 	ProductNode,
 	ProductPreview,
@@ -12,9 +13,11 @@ import {
 } from "./types";
 import client from "./apolloClient";
 import {
+	gqlCollectionHandles,
 	gqlGetCollectionsAndProducts,
 	gqlGetProductRecommendations,
-	gqlHandles,
+	gqlGetSingleCollection,
+	gqlProductHandles,
 	gqlProducts,
 	gqlSingleProduct,
 } from "./queries";
@@ -24,7 +27,10 @@ function unpackProductNode(node: ProductNode): Product {
 	return {
 		id: node.id,
 		title: node.title,
-		collection: node.collections.edges[0].node.title,
+		collection: {
+			title: node.collections.edges[0].node.title,
+			handle: node.collections.edges[0].node.handle,
+		},
 		description: node.description,
 		handle: node.handle,
 		image: node.featuredImage.url,
@@ -125,7 +131,7 @@ export async function getProductByHandle(
 export async function getProductHandles(): Promise<string[]> {
 	const data = await client.query<
 		ShopifyResponseMany<"products", { handle: string }>
-	>({ query: gqlHandles });
+	>({ query: gqlProductHandles });
 
 	if (data == null) {
 		return [];
@@ -134,6 +140,41 @@ export async function getProductHandles(): Promise<string[]> {
 	return data.data.products.edges.map((node) => node.node.handle);
 }
 
+export async function getCollectionHandles(): Promise<string[]> {
+	const data = await client.query<
+		ShopifyResponseMany<"collections", { handle: string }>
+	>({
+		query: gqlCollectionHandles,
+	});
+
+	if (data == null) {
+		return [];
+	}
+
+	return data.data.collections.edges.map((node) => node.node.handle);
+}
+export async function getCollectionByHandle(
+	handle: string
+): Promise<FullCollection | undefined> {
+	const data = await client.query<
+		ShopifyResponseOne<"collection", CollectionNode>
+	>({
+		query: gqlGetSingleCollection,
+		variables: { handle },
+	});
+
+	if (data == undefined || data.data.collection == undefined) {
+		return undefined;
+	}
+	const collection = data.data.collection;
+	return {
+		handle: collection.handle,
+		id: collection.id,
+		description: collection.description,
+		title: collection.title,
+		products: collection.products.nodes.map(unpackProductNode),
+	};
+}
 export async function createCheckout(
 	variants: string[]
 ): Promise<string | null> {
