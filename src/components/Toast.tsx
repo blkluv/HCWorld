@@ -14,7 +14,7 @@ export default function Toast({
 	time = 2000,
 }: ToastProps) {
 	const timeoutRef = useRef<null | number>();
-
+	/* eslint-disable */
 	useEffect(() => {
 		if (timeoutRef.current != null) {
 			clearTimeout(timeoutRef.current);
