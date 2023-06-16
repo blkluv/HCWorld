@@ -1,5 +1,5 @@
-import CartProvider from "@/context/CartProvider";
-import ToastProvider from "@/context/ToastProvider";
+import CartProvider from "@/contexts/CartProvider";
+import ToastProvider from "@/contexts/ToastProvider";
 import Layout from "@/components/layout/Layout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
